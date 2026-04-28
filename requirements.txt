@@ -1,0 +1,6 @@
+streamlit
+groq
+pyttsx3
+python-dotenv
+opencv-python
+numpy
