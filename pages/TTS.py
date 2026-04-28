@@ -7,8 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 st.set_page_config(page_title="AI Translator & TTS", layout="centered")
-
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
 st.title("🌐 AI Translator & Text-to-Speech")
 
