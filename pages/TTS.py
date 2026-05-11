@@ -1,7 +1,6 @@
 import streamlit as st
 from groq import Groq
 import pyttsx3
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
