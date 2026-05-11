@@ -1,6 +1,7 @@
 import streamlit as st
 from groq import Groq
-import pyttsx3
+from gtts import gTTS
+import io
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -94,18 +95,16 @@ with st.expander("⚙️ Options"):
             "Portuguese",
         ]
     )
-    # Only list voice names; don't init engine on every rerun
-    try:
-        _engine = pyttsx3.init(driverName='sapi5')
-        _voices = _engine.getProperty("voices")
-        voice_names = [v.name for v in _voices]
-        voice_ids = {v.name: v.id for v in _voices}
-        _engine.stop()
-    except Exception:
-        voice_names = ["Default"]
-        voice_ids = {}
-
-    voice_name = st.selectbox("Choose a voice", voice_names)
+    
+    # Map languages to gTTS language codes
+    lang_codes = {
+        "English": "en",
+        "French": "fr",
+        "Spanish": "es",
+        "German": "de",
+        "Italian": "it",
+        "Portuguese": "pt"
+    }
 
 if st.button("🔊  Translate & Speak"):
     if user_text.strip():
@@ -123,14 +122,13 @@ if st.button("🔊  Translate & Speak"):
                 st.markdown("**Translation:**")
                 st.write(response)
 
-                # Speak the translation
+                # Speak the translation using gTTS
                 try:
-                    engine = pyttsx3.init(driverName='sapi5')
-                    if voice_name in voice_ids:
-                        engine.setProperty("voice", voice_ids[voice_name])
-                    engine.say(response)
-                    engine.runAndWait()
-                    engine.stop()
+                    tts = gTTS(text=response, lang=lang_codes.get(language, "en"))
+                    audio_fp = io.BytesIO()
+                    tts.write_to_fp(audio_fp)
+                    audio_fp.seek(0)
+                    st.audio(audio_fp, format="audio/mp3", autoplay=True)
                 except Exception as tts_err:
                     st.warning(f"TTS playback failed: {tts_err}")
 
