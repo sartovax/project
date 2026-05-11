@@ -1,6 +1,7 @@
 streamlit
 groq
 pyttsx3
+comtypes
 python-dotenv
 opencv-python
 numpy
