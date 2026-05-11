@@ -9,7 +9,14 @@ load_dotenv()
 st.set_page_config(page_title="AI Translator & TTS", layout="centered")
 client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
-st.title("🌐 AI Translator & Text-to-Speech")
+st.markdown("""
+<style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown('<p class="chat-title">AI Translator & TTS</p>', unsafe_allow_html=True)
 
 user_text = st.text_area("Enter your text to translate:", height=150)
 
