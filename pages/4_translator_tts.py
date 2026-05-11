@@ -96,7 +96,7 @@ with st.expander("⚙️ Options"):
     )
     # Only list voice names; don't init engine on every rerun
     try:
-        _engine = pyttsx3.init()
+        _engine = pyttsx3.init(driverName='sapi5')
         _voices = _engine.getProperty("voices")
         voice_names = [v.name for v in _voices]
         voice_ids = {v.name: v.id for v in _voices}
@@ -125,7 +125,7 @@ if st.button("🔊  Translate & Speak"):
 
                 # Speak the translation
                 try:
-                    engine = pyttsx3.init()
+                    engine = pyttsx3.init(driverName='sapi5')
                     if voice_name in voice_ids:
                         engine.setProperty("voice", voice_ids[voice_name])
                     engine.say(response)
