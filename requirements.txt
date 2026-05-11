@@ -4,3 +4,5 @@ pyttsx3
 python-dotenv
 opencv-python
 numpy
+opencv-python
+libgl1
